@@ -5,7 +5,6 @@ import 'screens/home_screen.dart';
 void main() {
   runApp(
     const ProviderScope(
-      // ✅ This enables Riverpod globally
       child: MyApp(),
     ),
   );
