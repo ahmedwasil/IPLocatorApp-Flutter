@@ -11,13 +11,16 @@ class IPService {
   /// Fetches location info the for given IP address.
   /// If no IP is passed, fetches the current public IP of the user.
   Future<IPLocation> fetchIPLocation([String? ip]) async {
-    final url = ip == null || ip.isEmpty ? 'https://ipapi.co/json/' : 'https://ipapi.co/$ip/json/';
-
+    // final url = ip == null || ip.isEmpty ? 'https://ipapi.co/json/' : 'https://ipapi.co/$ip/json/';
+    final url = ip == null || ip.isEmpty ? 'https://ipwho.is/' : 'https://ipwho.is/$ip';
+    print('➡️ Fetching: $url');
     try {
       final response = await _dio.get(url);
+      print('✅ Response: ${response.data}');
       return IPLocation.fromJson(response.data);
     } catch (e) {
-      throw Exception('Failsed to fetch location');
+      print('❌ Dio error: $e');
+      throw Exception('Failed to fetch location');
     }
   }
 }
