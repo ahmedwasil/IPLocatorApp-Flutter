@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ip_locator_app/utils/utils.dart';
 import '../models/ip_location.dart';
 import '../services/ip_service.dart';
 
@@ -52,6 +53,14 @@ class IPLocatorNotifier extends StateNotifier<IPLocatorState> {
   /// Fetches location for manually entered IP address
   Future<void> fetchByIP(String ip) async {
     state = state.copyWith(isLoading: true, errorMessage: null);
+
+    if (!Utils.isValidIP(ip)) {
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage: '❌ Invalid IP address format.',
+      );
+      return;
+    }
 
     try {
       final result = await ipService.fetchIPLocation(ip);

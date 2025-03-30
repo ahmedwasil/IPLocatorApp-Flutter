@@ -43,11 +43,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ActionButtons(
               onGetMyIP: notifier.fetchMyIP,
               onLocateIP: () => notifier.fetchByIP(ipController.text),
+              isLoading: state.isLoading,
             ),
             const SizedBox(height: 20),
             if (state.isLoading) const LoadingIndicator(),
             if (state.errorMessage != null) ErrorMessage(message: state.errorMessage!),
-            if (state.location != null) ...[
+            if (state.location != null && state.errorMessage == null) ...[
               LocationResult(location: state.location!),
               const SizedBox(height: 16),
               MapView(key: _mapKey),

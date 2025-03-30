@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 class ActionButtons extends StatelessWidget {
   final VoidCallback onGetMyIP;
   final VoidCallback onLocateIP;
+  final bool isLoading;
 
   const ActionButtons({
     super.key,
     required this.onGetMyIP,
     required this.onLocateIP,
+    required this.isLoading,
   });
 
   @override
@@ -17,14 +19,14 @@ class ActionButtons extends StatelessWidget {
       children: [
         Expanded(
           child: ElevatedButton(
-            onPressed: onGetMyIP,
+            onPressed: isLoading ? null : onGetMyIP,
             child: const Text('Get My IP'),
           ),
         ),
         const SizedBox(width: 10),
         Expanded(
           child: ElevatedButton(
-            onPressed: onLocateIP,
+            onPressed: isLoading ? null : onLocateIP,
             child: const Text('Locate IP'),
           ),
         ),
